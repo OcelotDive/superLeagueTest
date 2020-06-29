@@ -1,5 +1,5 @@
 import React  from 'react';
-import { AppProvider } from './AppContext';
+import AppContext from './AppContext';
 import getPage from './marketjson';
 import backImage from './rugby.jpg';
 import Header from './components/Header';
@@ -9,7 +9,7 @@ import './animate.css';
 
 function App() {
 
-
+  const message = "this is a test message";
   const page = getPage();
   const matchWinnerMarket = page.Markets.find(market => market.Name === "MATCH WINNER (80 MINUTES)");
   const firstTryScorersMarket = page.Markets.find(market => market.Name === "1ST TRYSCORER");
@@ -45,10 +45,14 @@ function App() {
   console.log(firstScorers);
  
   return (
+    <AppContext.Provider message={message}>
     <div className="App">
+
       <section className="mainPage">
         <img className="backImage" src={backImage} alt="main background"/>
+       
         <Header  matchTitle={matchWinnerMarket.EventName}/>
+        
         <MainPlayerDisplay playerList={firstScorers}
          lastScorers={lastScorers} anyTime={anyTime} 
          firstScorer2ndHalf={firstScorer2ndHalf}
@@ -62,8 +66,10 @@ function App() {
           awayTeam={awayTeam}
           manOfTheMatch={manOfTheMatch}
           changeOpacity={changeOpacity}/>
+          
       </section>
     </div>
+    </AppContext.Provider>
   );
 }
 

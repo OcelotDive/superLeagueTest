@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
 import '../animate.css';
-
+import AppContext from '../AppContext';
+import App from '../App';
+console.log(AppContext)
 
 const PlayerModal = ({manOfTheMatch, homeTeam, awayTeam, currentPlayer, firstTry, lastScorers, anyTime, firstScorer2ndHalf, toScore2orMore, toScore3orMore, firstHalfAny, secondHalfAny, homeTeamFirstTry, awayTeamFirstTry}) => {
     const firstTryPrice = firstTry.filter(player => player.Name === currentPlayer)[0].Price;
@@ -17,6 +19,11 @@ const PlayerModal = ({manOfTheMatch, homeTeam, awayTeam, currentPlayer, firstTry
     const currentPlayerTeam = firstTry.filter(player=> player.Name === currentPlayer)[0].HADValue;
     const manOfTheMatchPrice = manOfTheMatch.filter(player => player.Name === currentPlayer)[0].Price;
     currentPlayer = currentPlayer.split(",").reverse().join(",").replace(",", " ");
+
+    const message = useContext(AppContext);
+        console.warn(message)
+
+
     return ReactDOM.createPortal(
         <div className="playerModal animated pulse">
         <h2 className="modalHeader">{currentPlayer} Betting</h2>
@@ -34,6 +41,8 @@ const PlayerModal = ({manOfTheMatch, homeTeam, awayTeam, currentPlayer, firstTry
                 currentPlayerTeam === 'H' ? <li>{homeTeam} First Try Scorer: {homeTeamFirstTryPrice}</li> : <li>{awayTeam} First Try Scorer: {awayTeamFirstTryPrice}</li>
             }
             <li>Man Of The Match: {manOfTheMatchPrice}</li>
+            <li>message{message}</li>
+            
         </ul>
         </div>,
         document.getElementById("portal-root")
