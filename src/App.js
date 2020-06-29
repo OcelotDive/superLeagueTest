@@ -9,7 +9,7 @@ import './animate.css';
 
 function App() {
 
-  const message = "this is a test message";
+  const message = {message:"this is a test message"};
   const page = getPage();
   const matchWinnerMarket = page.Markets.find(market => market.Name === "MATCH WINNER (80 MINUTES)");
   const firstTryScorersMarket = page.Markets.find(market => market.Name === "1ST TRYSCORER");
@@ -45,7 +45,7 @@ function App() {
   console.log(firstScorers);
  
   return (
-    <AppContext.Provider message={message}>
+    <AppContext.Provider value={message}>
     <div className="App">
 
       <section className="mainPage">

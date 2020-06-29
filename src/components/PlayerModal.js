@@ -21,7 +21,7 @@ const PlayerModal = ({manOfTheMatch, homeTeam, awayTeam, currentPlayer, firstTry
     currentPlayer = currentPlayer.split(",").reverse().join(",").replace(",", " ");
 
     const message = useContext(AppContext);
-        console.warn(message)
+      
 
 
     return ReactDOM.createPortal(
@@ -41,7 +41,7 @@ const PlayerModal = ({manOfTheMatch, homeTeam, awayTeam, currentPlayer, firstTry
                 currentPlayerTeam === 'H' ? <li>{homeTeam} First Try Scorer: {homeTeamFirstTryPrice}</li> : <li>{awayTeam} First Try Scorer: {awayTeamFirstTryPrice}</li>
             }
             <li>Man Of The Match: {manOfTheMatchPrice}</li>
-            <li>message{message}</li>
+            <li>message{message.message}</li>
             
         </ul>
         </div>,
