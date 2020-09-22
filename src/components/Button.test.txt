@@ -1,0 +1,123 @@
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import App from '../App';
+import Button from './Button';
+
+
+describe('Button', () => {
+    test('renders Button component', () => {
+      render(<App />);
+      screen.debug();
+
+    const b = screen.getByRole('submit');
+    expect(b).toBeInTheDocument();
+        
+    })
+  })
+
+ /* describe('button after click', () => {
+      test('Button is removed after click', () => {
+          render(<App />)
+            const b = screen.getByRole('submit');
+            fireEvent.click(b);
+            expect(b).not.toBeInTheDocument();
+      })
+  });
+*/
+  describe('button after double click', () => {
+    test('button text to change after double click', () => {
+      render(<App />);
+      const b = screen.getByRole('submit');
+      fireEvent.doubleClick(b);
+      expect(b).toHaveTextContent(/changed/i);
+    })
+  })
+
+
+  describe('button to change colour', () => {
+    test('button background to change to yellow', () => {
+      render(<App />);
+      const b = screen.getByRole('submit');
+      fireEvent.doubleClick(b);
+      expect(b).toHaveStyle('background: yellow');
+    })
+  });
+
+  describe('button too change header on double click', () => {
+    test('change header to button clicked double like', () => {
+      render(<App />);
+      const h = screen.getByText(/react testing/i);
+      const b = screen.getByRole('submit');
+      fireEvent.doubleClick(b);
+      expect(h).toHaveTextContent('button clicked double like');
+    })
+  })
+
+  describe('button to change header and back again', () => {
+    test('button to change back to test this button', () => {
+      render(<App />);
+      const h = screen.getByText(/react testing/i);
+      const b = screen.getByRole('submit');
+      fireEvent.doubleClick(b);
+      expect(h).toHaveTextContent('button clicked double like');
+      fireEvent.doubleClick(b);
+      expect(h.innerHTML).toBe('react testing library'); // toBe or toHaveTextContent works.
+    })
+  });
+
+describe('label not to be in page', () => {
+  test('assert label not there', () => {
+     render(<App />);
+     let l = screen.queryByText(/button label/i);
+     expect(l).not.toBeInTheDocument();
+     const b = screen.getByRole('submit');
+  })
+});
+
+describe('colour of button background', () => {
+  test('button should turn red on fourth click', () => {
+    render(<App />);
+    let butt = screen.getByRole('submit');
+    for(let i = 0; i <= 3; i++) {
+    fireEvent.click(butt);
+    }
+    expect(butt).toHaveStyle('background: red');
+  })
+})
+
+describe('should display extra div', () => {
+  test('after single button click div with count renders', () => {
+    render(<App />);
+    let b = screen.getByRole('submit');
+    let div = screen.queryByText(/count/i);
+    expect(div).not.toBeInTheDocument();
+    fireEvent.click(b);
+    
+ let displayedDiv = screen.getByText(/count/i);
+ expect(displayedDiv).toBeInTheDocument();
+    expect(displayedDiv).toBeVisible();
+    fireEvent.click(b);
+    expect(displayedDiv).not.toBeInTheDocument();
+    fireEvent.click(b);
+    expect(b).toHaveStyle('background: -internal-light-dark(rgb(239, 239, 239), rgb(74, 74, 74));');
+    let displayDivAfterThird = screen.getByText(/count/i);
+    expect(displayDivAfterThird).toBeVisible();
+    expect(displayDivAfterThird).toBeInTheDocument();
+  })
+})
+
+
+/*describe('label to be on page after doubleClick', () => {
+  test('assert label presence and text', () => {
+    render(<App />);
+    let label = screen.queryByText(/button label/i);
+    expect(label).not.toBeInTheDocument();
+    const b = screen.getByRole('submit');
+
+    fireEvent.doubleClick(b);
+    const l = screen.getByText(/button label/i);
+    expect(l).toBeInTheDocument();
+    expect(l).toHaveTextContent('button label');
+  })
+})
+*/
