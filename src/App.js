@@ -1,35 +1,58 @@
-import React from 'react';
- 
+import React, { useState } from "react";
+import { createContext } from 'react';
+import { useContext } from "react";
+import ClickCounter from './components/ClickCounter';
+import HoverCounter from './components/HoverCounter';
+import ClickCounterCustom from './components/ClickCounterCustom';
+import HoverCounterCustom from './components/HoverCounterCustom';
+import Display from './components/Display';
+import DisplayProvider from './components/DisplayProvider';
+import ParentRender from './components/ParentRender';
+import ChildRender from './components/ChildRender';
+import ErrorBoundary from './components/ErrorBoundary';
+import StandaloneReducer from './components/StandaloneReducer';
+import StyledComponent from './components/StyledComponent';
+import Test from './components/test/Test';
+import Test2 from './components/test2/Test2';
+
+
+
+
+
+
+
 function App() {
-  const [search, setSearch] = React.useState('');
- 
-  function handleChange(event) {
-    setSearch(event.target.value);
+
+  let [value, setValue] = useState(true);
+  const handleClick = () => {
+    setValue(!value);
   }
- 
   return (
-    <div>
-      <Search value={search} onChange={handleChange}>
-        Search:
-      </Search>
- 
-      <p>Searches for {search ? search : '...'}</p>
-    </div>
+    <>
+      <ErrorBoundary>
+        <div>With higher order component</div>
+        <ClickCounter />
+        <HoverCounter />
+        <div>With custom hook</div>
+        <ClickCounterCustom />
+        <HoverCounterCustom />
+        <div>With Context and useReducer</div>
+        <DisplayProvider>
+          <Display />
+        </DisplayProvider>
+        <ParentRender render={({ fromParent }) => <ChildRender fromParent={fromParent} />}>
+        </ParentRender>
+        <StandaloneReducer />
+        <StyledComponent value={value} onClick={handleClick} $style={{ backgroundColor: '#007bff' }}>{value ? 'Styled button' : 'Re-Styled button'}</StyledComponent>
+        <Test />
+        <Test2 />
+      </ErrorBoundary>
+
+    </>
   );
 }
- 
-function Search({ value, onChange, children }) {
-  return (
-    <div>
-      <label htmlFor="search">{children}</label>
-      <input
-        id="search"
-        type="text"
-        value={value}
-        onChange={onChange}
-      />
-    </div>
-  );
-}
- 
+
+
+
+
 export default App;
