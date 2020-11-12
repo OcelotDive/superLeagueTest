@@ -4,7 +4,7 @@ import DisplayProvider, { stateContext, dispatchContext } from './DisplayProvide
 
 const Display = () => {
     const dispatch = React.useContext(dispatchContext);
-    const { display } = React.useContext(stateContext)
+    const { display } = React.useContext(stateContext);
     const handleClick = (e) => {
         if (e.target.className === 'btn') {
             dispatch({ type: e.target.innerHTML });

@@ -14,15 +14,27 @@ import StandaloneReducer from './components/StandaloneReducer';
 import StyledComponent from './components/StyledComponent';
 import Test from './components/test/Test';
 import Test2 from './components/test2/Test2';
+import { Button, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 
 
 
+const useStyles = makeStyles({
+  myStyles: {
+    fontStyle: 'oblique',
+    color: 'yellow'
+  },
+  buttonStyles: {
+    fontSize: '30px',
+    backgroundColor: 'lightBlue',
+  }
+});
 
 
 
 
 function App() {
-
+  const classes =  useStyles();
   let [value, setValue] = useState(true);
   const handleClick = () => {
     setValue(!value);
@@ -48,6 +60,9 @@ function App() {
         <Test2 />
       </ErrorBoundary>
 
+     <Typography variant="h3" className={classes.myStyles}>Material ui</Typography>
+     <br/>
+      <Button className={classes.buttonStyles}>Material ui button</Button>
     </>
   );
 }
